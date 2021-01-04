@@ -56,7 +56,7 @@ fi
 
 # build 389-ds-base with mock
 sudo dnf builddep -y 389-ds-base
-sudo dnf install -y mock rpm-build 389-ds-base cockpit-389-ds
+sudo dnf install -y mock rpm-build 389-ds-base cockpit-389-ds npm cargo
 sudo usermod -a -G mock vagrant
 pushd 389-ds-base
 sed 's/npm run audit-ci//g' -i src/cockpit/389-console/node_modules.mk
@@ -68,14 +68,14 @@ make -f rpm.mk clean
 # enable ASAN
 #if [ ! -z "${ASAN}" ]; then
 #sed -i 's/CLANG_ON = 0/CLANG_ON = 1/g' rpm.mk
-sed -i 's/ASAN_ON = 0/ASAN_ON = 1/g' rpm.mk
+#sed -i 's/ASAN_ON = 0/ASAN_ON = 1/g' rpm.mk
 #sed -i 's/MSAN_ON = 0/MSAN_ON = 1/g' rpm.mk
 #sed -i 's/TSAN_ON = 0/TSAN_ON = 1/g' rpm.mk
 #fi
 
 make -f rpm.mk srpms
 SRPM=$(ls -1 dist/srpms/)
-MOCKRESULT="/var/lib/mock/fedora-32-x86_64/result"
+MOCKRESULT="/var/lib/mock/fedora-33-x86_64/result"
 mock -q "dist/srpms/$SRPM"
 pushd $MOCKRESULT
 gzip *log
@@ -200,7 +200,7 @@ echo "set -o vi" >> ~/.bashrc
 SCRIPT
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "fedora/32-cloud-base"
+  config.vm.box = "fedora/33-cloud-base"
   #config.vm.network "private_network", type: "dhcp",  libvirt__network_name: "foo-network"
 
   config.vm.provision "shell", privileged: false, inline: $script, env: {
@@ -221,15 +221,15 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "inst1", primary: true do |master1|
-    master1.vm.box = "fedora/32-cloud-base"
+    master1.vm.box = "fedora/33-cloud-base"
   end
 
   config.vm.define "inst2", autostart: false do |master2|
-    master2.vm.box = "fedora/32-cloud-base"
+    master2.vm.box = "fedora/33-cloud-base"
   end
 
   config.vm.define "inst3", autostart: false do |master3|
-    master3.vm.box = "fedora/32-cloud-base"
+    master3.vm.box = "fedora/33-cloud-base"
   end
 
   #config.vm.network "forwarded_port", guest: 80, host: 8080
