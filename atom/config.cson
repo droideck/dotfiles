@@ -1,0 +1,48 @@
+"*":
+  "atom-beautify":
+    c:
+      default_beautifier: "clang-format"
+    js:
+      wrap_line_length: 120
+  build: {}
+  core:
+    customFileTypes:
+      "source.ini": [
+        ".hgrc"
+        ".buckconfig"
+        ".flowconfig"
+      ]
+      "source.json": [
+        "BUCK.autodeps"
+      ]
+      "source.python": [
+        "BUCK"
+      ]
+    disabledPackages: []
+    packagesWithKeymapsDisabled: []
+    telemetryConsent: "no"
+  editor:
+    fontSize: 13
+    preferredLineLength: 120
+  "exception-reporting":
+    userId: "224e5c16-c856-4d40-a0d0-2d309d56647b"
+  "git-blame":
+    colorCommitAuthors: true
+    columnWidth: 363
+  "linter-flake8":
+    maxLineLength: 100
+  "linter-ui-default":
+    showPanel: true
+  nuclide:
+    installRecommendedPackages: true
+    use:
+      "atom-ide-diagnostics-ui": "never"
+  "prettier-atom":
+    useEslint: true
+  "python-black":
+    fmtOnSave: false
+  welcome:
+    showOnStartup: false
+".js.jsx.source":
+  editor:
+    preferredLineLength: 110
