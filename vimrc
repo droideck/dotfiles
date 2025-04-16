@@ -16,11 +16,11 @@ Plugin 'scrooloose/nerdcommenter' " Nice commenting
 Plugin 'valloric/youcompleteme' " Code completion
 Plugin 'godlygeek/tabular' " Tabs
 Plugin 'honza/vim-snippets' " Snipets
-Plugin 'powerline/powerline'
 Bundle 'flazz/vim-colorschemes'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'scrooloose/nerdtree'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -79,7 +79,12 @@ augroup resCur
   autocmd BufReadPost * call setpos(".", getpos("'\""))
 augroup END
 
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
+let g:airline_powerline_fonts = 1
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+set rtp+=/opt/homebrew/opt/fzf
 
